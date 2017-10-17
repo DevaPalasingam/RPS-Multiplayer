@@ -1,0 +1,10 @@
+-Chat
+
+-Limiting to 2 players
+
+-Extra players can only view and chat
+
+-Players sign in
+
+-Player 1 pick first
+

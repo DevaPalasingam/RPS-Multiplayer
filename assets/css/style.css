@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#userNameDiv {
+	width: 500px;
+	margin: 0 auto 0 auto;
+}
+
+#userNameInput {
+	text-align: left;
+}
