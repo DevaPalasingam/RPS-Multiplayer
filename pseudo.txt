@@ -1,6 +1,7 @@
 -Chat
 
 -Limiting to 2 players
+	-if one of the players leave, then the viewers can join game
 
 -Extra players can only view and chat
 

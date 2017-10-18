@@ -3,11 +3,56 @@
   text-align: center;
 }
 
+body {
+	background-image: url(../images/darkness/darkness/darkness.png)
+}
+
+h1 {
+	font-weight: bold;
+	color: white;
+}
+
+p {
+	color: white;
+}
+
+
+#playerOne, #playerTwo, #winLoseScreen {
+	height: 150px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+#playerOneText, #playerTwoText {
+	color: white;
+}
+
+#winLoseScreen {
+	margin-right: 2%;
+	margin-left: 2%;
+	width: 29.3%;
+}
+
 #userNameDiv {
 	width: 500px;
 	margin: 0 auto 0 auto;
 }
 
 #userNameInput {
+	text-align: left;
+}
+
+#showChat {
+	height: 200px;
+	width: 700px;
+	margin: 0 auto 15px auto;
+}
+
+#chatInput {
+	width: 700px;
+	margin: 0 auto 0 auto;
+}
+
+#chatTextInput {
 	text-align: left;
 }

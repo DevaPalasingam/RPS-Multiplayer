@@ -9,4 +9,13 @@
   };
   firebase.initializeApp(config);
 
-  
+  var dataRef = firebase.database();
+
+  function playerObject(username, choice, loss, win) {
+  	this.username = username;
+  	this.choice = choice;
+  	this.loss = loss;
+  	this.win = win;
+  }
+
+  var playerNumber = 0;
