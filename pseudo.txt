@@ -9,3 +9,14 @@
 
 -Player 1 pick first
 
+
+
+
+-Create 2 data trees, starts empty
+-everyone that goes to the site has the option to make a username
+	-if they don't make a username, they can't chat
+-one data tree keeps track of everyone online and what their username is
+-the other tree only has two elements, player one and player two
+	-if a player leaves then remove him from this tree
+	-present other people online the option to join
+

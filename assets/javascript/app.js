@@ -18,35 +18,45 @@
   	this.win = win;
   }
 
-  var peopleOnline;
-  var peoplePlaying;
-
+var myFirebaseId;
+  
   //Document ready: waits for the html to load before running other code
   $ (document).ready(function(){
 
-  	//People online: this code will count how many people are online and then display it
-  	var connectionsRef = dataRef.ref("/connections");
-  	var connectedRef = dataRef.ref(".info/connected");
-  	connectedRef.on("value", function(snap) {
-  		 if (snap.val()) {
-  		 	var con = connectionsRef.push(true);
-  		 	con.onDisconnect().remove();
-  		 }
+  	//Everyone online: this code will create a tree that keeps track of everyone online
+  	var everyoneTreeRef = dataRef.ref("/everyoneTree");
+  	var connectionRef = dataRef.ref(".info/connected");
+
+  	connectionRef.on("value", function(snap){
+  		if (snap.val()) {
+  			var userObj = {
+  				username: "derp"
+  			}
+  			var con = everyoneTreeRef.push(userObj);
+  			console.log(everyoneTreeRef);
+  			con.onDisconnect().remove();
+  			myFirebaseId = con.path.n[1];
+  			console.log(myFirebaseId);
+  		}
+  	});
+  	//Everyone online:=========================================
+  	everyoneTreeRef.on("value",function(dataFromInternet){
+  		var baseObject = dataFromInternet.val();
+  		console.log("username = " + baseObject[myFirebaseId].username);
   	});
 
-  	connectionsRef.on("value", function(snap) {
-  		$("#watchers").text(snap.numChildren());
-  		peopleOnline = snap.numChildren();
-  		console.log("people online: " + peopleOnline);
-  	});
-  	//People online:=========================================
 
+  	function ok(){
+  		dataRef.ref("/everyoneTree/" + myFirebaseId).set({username:"something else"})
+  	};
+
+  	setTimeout(ok,5000);
+  		
 
   	//Enter key: this code runs when the enter key is pressed
   	$(document).keypress(function(e) {
   		if(e.which == 13) {
   			console.log("you pushed enter")
-
   		}
   	});
   	//Enter key:=============================================
