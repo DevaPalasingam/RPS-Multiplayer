@@ -55,6 +55,9 @@ p {
 
 #showChatText {
 	text-align: left;
+	resize: none;
+	overflow-y: scroll;
+	max-height: 200px;
 }
 
 #chatInput {

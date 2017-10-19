@@ -20,6 +20,7 @@
 
 var myFirebaseId;
 var myUsername;
+var chatBox = "";
   
   //Document ready: waits for the html to load before running other code
   $ (document).ready(function(){
@@ -49,7 +50,18 @@ var myUsername;
   	//Everyone online:=========================================
 
 
-    	
+  	//Chat tree: this code will create the tree that keeps the chat updated
+  	
+
+  	dataRef.ref().set({
+  		chatTree: chatBox
+  	});
+
+  	dataRef.ref().on("value", function(snapshot){
+  		$ ("#showChatText").append(snapshot.val().chatTree + "<br>");
+  	});
+  	//Chat tree:===============================================
+ 	
   		
 
   	//Enter key: this code runs when the enter key is pressed
@@ -66,8 +78,13 @@ var myUsername;
   			//if a username has been made and something was typed in the chat, then add the text to the chat screen
   			if (myUsername) {
   				if ($("#chatTextInput").val().trim() !== "") {
-  					$ ("#showChatText").append(myUsername + ": " + ($("#chatTextInput").val().trim()) + "<br>");
+  					// $ ("#showChatText").append(myUsername + ": " + ($("#chatTextInput").val().trim()) + "<br>");
+  					// $("#chatTextInput").val("");
+  					
+
+  					chatBox = myUsername + ": " + ($("#chatTextInput").val().trim());
   					$("#chatTextInput").val("");
+  					updateChatTree(chatBox);
   				}
   			}
 
@@ -90,3 +107,12 @@ var myUsername;
   	dataRef.ref("/everyoneTree/" + myFirebaseId).set({username: newUserName});
   }
   //insertUsername:=============================================
+
+ 
+  //updateChatTree: this function updates the chat tree when people want to chat
+  function updateChatTree(chatText) {
+  	dataRef.ref().set({
+  		chatTree: chatText
+  	});
+  }
+  //updateChatTree:==========================================
