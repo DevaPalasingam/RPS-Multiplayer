@@ -19,10 +19,12 @@
   }
 
 var myFirebaseId;
+var myUsername;
   
   //Document ready: waits for the html to load before running other code
   $ (document).ready(function(){
 
+  	
   	//Everyone online: this code will create a tree that keeps track of everyone online
   	var everyoneTreeRef = dataRef.ref("/everyoneTree");
   	var connectionRef = dataRef.ref(".info/connected");
@@ -30,7 +32,7 @@ var myFirebaseId;
   	connectionRef.on("value", function(snap){
   		if (snap.val()) {
   			var userObj = {
-  				username: "derp"
+  				username: ""
   			}
   			var con = everyoneTreeRef.push(userObj);
   			console.log(everyoneTreeRef);
@@ -39,27 +41,52 @@ var myFirebaseId;
   			console.log(myFirebaseId);
   		}
   	});
-  	//Everyone online:=========================================
-  	everyoneTreeRef.on("value",function(dataFromInternet){
-  		var baseObject = dataFromInternet.val();
-  		console.log("username = " + baseObject[myFirebaseId].username);
+
+  	//this code is to print how many people are in the everyoneTree
+  	everyoneTreeRef.on("value", function(snap){
+  		$("#watchers").text(snap.numChildren());
   	});
+  	//Everyone online:=========================================
 
 
-  	function ok(){
-  		dataRef.ref("/everyoneTree/" + myFirebaseId).set({username:"something else"})
-  	};
-
-  	setTimeout(ok,5000);
+    	
   		
 
   	//Enter key: this code runs when the enter key is pressed
   	$(document).keypress(function(e) {
   		if(e.which == 13) {
   			console.log("you pushed enter")
+
+  			//if a username was typed in, call insertUsername
+  			if ($ ("#userNameInput").length && $ ("#userNameInput").val().trim() !== "") {
+  				insertUsername();
+  				$ ("#userNameDiv").empty();
+  			}
+
+  			//if a username has been made and something was typed in the chat, then add the text to the chat screen
+  			if (myUsername) {
+  				if ($("#chatTextInput").val().trim() !== "") {
+  					$ ("#showChatText").append(myUsername + ": " + ($("#chatTextInput").val().trim()) + "<br>");
+  					$("#chatTextInput").val("");
+  				}
+  			}
+
+
   		}
   	});
   	//Enter key:=============================================
 
   });
   //Document ready:==========================================
+
+
+  
+  //inertUsername: this function puts the inputed username into firebase, also it makes the var myUsername, have the new username
+  function insertUsername() {
+  	var newUserName = $ ("#userNameInput").val().trim();
+
+  	myUsername = newUserName;
+  	console.log("username is now: " + myUsername);
+  	dataRef.ref("/everyoneTree/" + myFirebaseId).set({username: newUserName});
+  }
+  //insertUsername:=============================================

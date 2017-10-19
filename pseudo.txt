@@ -20,3 +20,16 @@
 	-if a player leaves then remove him from this tree
 	-present other people online the option to join
 
+
+
+everyoneTreeRef.on("value",function(dataFromInternet){
+  		var baseObject = dataFromInternet.val();
+  		console.log("username = " + baseObject[myFirebaseId].username);
+  	});
+
+
+function ok(){
+  		dataRef.ref("/everyoneTree/" + myFirebaseId).set({username:"something else"})
+  	};
+
+  	setTimeout(ok,5000);
